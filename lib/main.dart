@@ -1,114 +1,71 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: Colors.red,
+        appBar: AppBar(
+          title: Text('Dicee'),
+          backgroundColor: Colors.red,
+        ),
+        body: const DicePage(),
+      ),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class DicePage extends StatefulWidget {
+  const DicePage({super.key});
+
+  @override
+  State<DicePage> createState() => _DicePageState();
+}
+
+class _DicePageState extends State<DicePage> {
+  
+  int leftDiceNumber = 1;
+  int rightDiceNumber = 2;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.blueGrey,
-
-        body: SafeArea(
-          child: Container(
-            margin: const EdgeInsets.all(20),
-            padding: const EdgeInsets.all(20),
-
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-
-              children: [
-
-                // Name
-                Text(
-                  'Sara Ameen',
-                  style: TextStyle(
-                    fontSize: 35,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return Center(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    leftDiceNumber = Random().nextInt(6) + 1;
+                  });
+                },
+                child: Image.asset(
+                  'images/dice$leftDiceNumber.png',
                 ),
-
-                // Space
-                SizedBox(height: 10),
-
-                // Job
-                Text(
-                  'Flutter Developer',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white70,
-                  ),
-                ),
-
-                SizedBox(height: 30),
-
-                // Phone Card
-                Container(
-                  padding: const EdgeInsets.all(15),
-                  margin: const EdgeInsets.all(5),
-
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-
-                  child: Row(
-                    children: [
-                      Text(
-                        '📱',
-                        style: TextStyle(fontSize: 25),
-                      ),
-
-                      SizedBox(width: 15),
-
-                      Text(
-                        '+970 599 000 000',
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // Email Card
-                Container(
-                  padding: const EdgeInsets.all(15),
-                  margin: const EdgeInsets.all(5),
-
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-
-                  child: Row(
-                    children: [
-                      Text(
-                        '✉️',
-                        style: TextStyle(fontSize: 25),
-                      ),
-
-                      SizedBox(width: 15),
-
-                      Text(
-                        'sara@example.com',
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
+
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    rightDiceNumber = Random().nextInt(6) + 1;
+                  });
+                },
+                child: Image.asset(
+                  'images/dice$rightDiceNumber.png',
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
